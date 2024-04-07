@@ -1,6 +1,6 @@
 import json
-from src.product import Product
-from src.category import Category
+from src.classes_package.product import Product
+from src.classes_package.category import Category
 
 
 def load_json(path):
@@ -19,5 +19,5 @@ def unpacker(json_list):
             prod_from_cat.append(product)
         category = Category(categ['name'], categ['description'], prod_from_cat)
         category_list.append(category)
-        products_list.append(prod_from_cat)
+        products_list.extend(prod_from_cat)
     return category_list, products_list
