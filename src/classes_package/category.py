@@ -1,7 +1,8 @@
-from src.product import Product
+from src.classes_package.product import Product
+from src.classes_package.mixinlog import MixinLog
 
 
-class Category:
+class Category(MixinLog):
     """
     Класс категорий
     Непосредственно в классе находятся два счетчика - один считает количество
@@ -34,6 +35,8 @@ class Category:
 
         Category.category_count += 1
         Category.products_count += len(products)
+        if type(self) is Category:
+            self.print_ec()
 
     def add_product(self, new_product: Product) -> None:
         """
@@ -42,12 +45,26 @@ class Category:
         :param new_product: экземпляр класса продукты
         :return: None
         """
+        if len(new_product) <= 0:
+            raise ValueError("Товар с нулевым/отрицательным количеством"
+                             "не может быть добавлен")
         if not isinstance(new_product, Product):
             raise TypeError("элементы списка продуктов, должны является"
                             "экземпляры класса 'продукт' или экземплярами"
                             "классов наследуемых от 'продукта'")
         self.__products.append(new_product)
-        Category.products_count = len(self.__products)
+        Category.products_count += 1
+
+    def avg_price(self):
+        try:
+            sum_price = 0
+            sum_prod_quant = 0
+            for product in self.__products:
+                sum_price += product.price
+            avg_price = sum_price / len(self)
+            return avg_price
+        except ZeroDivisionError:
+            return 0
 
     @property
     def products(self) -> list:
