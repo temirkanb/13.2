@@ -1,5 +1,5 @@
 import pytest
-from src.product import Product
+from src.classes_package.product import Product
 
 
 def test_init(for_product_1):
@@ -24,7 +24,7 @@ def test_price_getter(for_product_1):
     assert for_product_1.price == 31000.0
 
 
-def test_price_setter(for_product_1):
+def test_price_setter(for_product_1, input_user):
     for_product_1.price = 30000.0  # При вводе 'n'
     assert for_product_1.price == 31000.0
     for_product_1.price = 30000.0  # При вводе 'y'
