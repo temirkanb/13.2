@@ -1,4 +1,7 @@
-class Product:
+from src.classes_package.mixinlog import MixinLog
+
+
+class Product(MixinLog):
     """
     Класс продуктов
     внутри непосредственно класса только список продуктов - общий,
@@ -16,6 +19,8 @@ class Product:
         self.quantity = quantity
 
         Product.products_list.append(self)
+        if type(self) is Product:
+            self.print_ec()
 
     @classmethod
     def init_new_product(cls, dict_with_prod) -> object:
@@ -78,7 +83,7 @@ class Product:
         :param other: другой экземпляр класса продукт
         :return: целочисленное значение
         """
-        if not isinstance(other, self.__class__):
+        if type(self) is not type(other):
             raise TypeError("сложение допустимо только между экземплярами "
                             "одного и того же класса")
         return self.sum_price_prod() + other.sum_price_prod()
