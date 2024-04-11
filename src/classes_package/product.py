@@ -1,7 +1,8 @@
 from src.classes_package.mixinlog import MixinLog
+from src.classes_package.pattern_product import PatternProduct
 
 
-class Product(MixinLog):
+class Product(MixinLog, PatternProduct):
     """
     Класс продуктов
     внутри непосредственно класса только список продуктов - общий,
